@@ -356,26 +356,38 @@ function createPrefixedWriter(label, stream) {
 }
 
 function spawnLongRunning(command, args, options = {}) {
+  // const child = spawn(command, args, {
+  //   cwd: options.cwd,
+  //   env: options.env,
+  //   shell: false,
+  //   stdio: ['ignore', 'pipe', 'pipe'],
+  // })
   const child = spawn(command, args, {
     cwd: options.cwd,
     env: options.env,
-    shell: false,
-    stdio: ['ignore', 'pipe', 'pipe'],
-  })
-  const stdout = createPrefixedWriter(options.label ?? 'process', process.stdout)
-  const stderr = createPrefixedWriter(options.label ?? 'process', process.stderr)
+    shell: true,
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  const stdout = createPrefixedWriter(
+    options.label ?? "process",
+    process.stdout,
+  );
+  const stderr = createPrefixedWriter(
+    options.label ?? "process",
+    process.stderr,
+  );
 
-  child.stdout.on('data', (chunk) => stdout.write(chunk))
-  child.stderr.on('data', (chunk) => stderr.write(chunk))
+  child.stdout.on("data", (chunk) => stdout.write(chunk));
+  child.stderr.on("data", (chunk) => stderr.write(chunk));
 
-  children.add(child)
-  child.once('exit', () => {
-    stdout.flush()
-    stderr.flush()
-    children.delete(child)
-  })
+  children.add(child);
+  child.once("exit", () => {
+    stdout.flush();
+    stderr.flush();
+    children.delete(child);
+  });
 
-  return child
+  return child;
 }
 
 function stopChildren() {

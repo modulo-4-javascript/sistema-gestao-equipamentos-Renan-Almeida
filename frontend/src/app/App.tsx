@@ -5,7 +5,7 @@ import { AppRoutes } from './routes'
 import { appTheme } from './theme/appTheme'
 
 function App() {
-  // Providers globais: tema/idioma do Ant Design, recursos do Ant Design e rotas.
+  // Providers globais: tema/idioma do Ant Design, recursos do Ant Design e rotas
   return (
     <ConfigProvider locale={ptBR} theme={appTheme}>
       <AntDesignApp>
