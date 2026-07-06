@@ -24,7 +24,7 @@ export const equipmentDetailsMock: EquipmentDetail[] = [
       {
         id: 'history-001',
         date: '24 Out 2023, 14:30',
-        title: 'Status atualizado',
+        title: 'Status ',
         description: 'Alterado de "Em manutenção" para "Disponível".',
       },
       {
